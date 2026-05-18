@@ -20,16 +20,19 @@ Backport von projektspezifischen Verbesserungen ins Template.
 ### 2. Diff aufbauen
 
 Für jeden der drei Pfade:
+
 - `.claude/agents/*.md`
 - `.claude/skills/*/SKILL.md` (plus weitere Files im selben Skill-Ordner)
 - `.claude/commands/*.md`
 
 Pro Datei drei mögliche Zustände:
+
 - **neu** — existiert nur lokal
 - **geändert** — existiert in beiden, Inhalt unterscheidet sich
 - **identisch** — Inhalt gleich → ignorieren
 
 Vergleich via Bash:
+
 ```bash
 diff -q "$LOCAL/datei" "$TEMPLATE/datei"
 ```
@@ -37,7 +40,8 @@ diff -q "$LOCAL/datei" "$TEMPLATE/datei"
 ### 3. Kandidaten-Liste
 
 Tabelle ausgeben:
-```
+
+```text
 Neu:
 - .claude/agents/foo.md
 
@@ -72,6 +76,7 @@ git -C /home/oogway/GitHub/Claude-Setup status
 ```
 
 Bericht:
+
 - Kopierte Files (Liste)
 - Übersprungene Files (Liste)
 - Hinweis: "Im Template committen: `cd /home/oogway/GitHub/Claude-Setup && git add -A && git commit`"

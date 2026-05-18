@@ -20,12 +20,14 @@ Nimmt Drift zwischen lokalem Projekt und Template auf, schlägt selektive Update
 ### 2. Files-of-interest sammeln
 
 **Strukturell (sicher upgradebar):**
+
 - `.gitignore`
 - `.mcp.json`
 - `.claude/settings.json`
 - Alle `.claude/skills/`, `.claude/agents/`, `.claude/commands/` Files **die im Target fehlen**
 
 **Riskant (User-Inhalt drin, nur Diff zeigen):**
+
 - `CLAUDE.md` — nie überschreiben, nur Patch-Vorschlag
 - `CLAUDE.local.md.example`
 - `README.md` (falls User Template-README behalten hat)
@@ -33,17 +35,18 @@ Nimmt Drift zwischen lokalem Projekt und Template auf, schlägt selektive Update
 
 ### 3. Pro Datei klassifizieren
 
-| Zustand | Aktion |
-|---------|--------|
-| im Template, nicht im Target | **NEU** — sicher zu kopieren |
-| in beiden, identisch | ignorieren |
-| in beiden, Target modifiziert | **DRIFT** — Diff zeigen, User entscheidet |
-| nur im Target | ignorieren (gehört nicht zum Template) |
+| Zustand                        | Aktion                                     |
+| ------------------------------ | ------------------------------------------ |
+| im Template, nicht im Target   | **NEU** — sicher zu kopieren               |
+| in beiden, identisch           | ignorieren                                 |
+| in beiden, Target modifiziert  | **DRIFT** — Diff zeigen, User entscheidet  |
+| nur im Target                  | ignorieren (gehört nicht zum Template)     |
 
 ### 4. Bericht + AskUserQuestion
 
 Ausgabe:
-```
+
+```text
 Neu im Template (sicher übernehmbar):
 - .claude/commands/neuer-skill.md
 
@@ -73,6 +76,7 @@ git status
 ```
 
 Bericht:
+
 - Übernommene Files
 - Übersprungen
 - Manuell zu mergende

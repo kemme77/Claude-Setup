@@ -1,5 +1,6 @@
 # Persönliche Claude Code Overrides — niemals committen
 CLAUDE.local.md
+.claude/settings.local.json
 
 # Secrets
 .env

@@ -35,7 +35,7 @@ cp -ri "$TEMPLATE/.claude" .
 Scan nach Indikatoren im aktuellen Verzeichnis (`Glob` / `Read`):
 
 | Sprache/Framework | Indikator |
-|-------------------|-----------|
+| ------------------- | ----------- |
 | JavaScript/TypeScript | `package.json` (Dependencies + Versionen extrahieren) |
 | Python | `pyproject.toml`, `requirements.txt`, `Pipfile`, `setup.py` |
 | Rust | `Cargo.toml` |
@@ -59,39 +59,45 @@ Bei nichts erkannt: einzelne Frage "Welcher Stack ist im Einsatz?" mit Freitext-
 ### 5. Doku-URLs ergänzen
 
 Für jede bestätigte Lib offizielle URL ableiten:
-- React → https://react.dev
-- Next.js → https://nextjs.org/docs
-- Vue → https://vuejs.org/guide/
-- Svelte → https://svelte.dev/docs
-- TypeScript → https://www.typescriptlang.org/docs/
-- Tailwind → https://tailwindcss.com/docs
-- Vitest → https://vitest.dev/guide/
-- Jest → https://jestjs.io/docs/getting-started
-- Pytest → https://docs.pytest.org/
-- Django → https://docs.djangoproject.com/
-- FastAPI → https://fastapi.tiangolo.com/
-- Express → https://expressjs.com/
+
+- React → [react.dev](https://react.dev)
+- Next.js → [nextjs.org/docs](https://nextjs.org/docs)
+- Vue → [vuejs.org/guide/](https://vuejs.org/guide/)
+- Svelte → [svelte.dev/docs](https://svelte.dev/docs)
+- TypeScript → [typescriptlang.org/docs/](https://www.typescriptlang.org/docs/)
+- Tailwind → [tailwindcss.com/docs](https://tailwindcss.com/docs)
+- Vitest → [vitest.dev/guide/](https://vitest.dev/guide/)
+- Jest → [jestjs.io/docs/getting-started](https://jestjs.io/docs/getting-started)
+- Pytest → [docs.pytest.org/](https://docs.pytest.org/)
+- Django → [docs.djangoproject.com/](https://docs.djangoproject.com/)
+- FastAPI → [fastapi.tiangolo.com/](https://fastapi.tiangolo.com/)
+- Express → [expressjs.com/](https://expressjs.com/)
 - (etc. — sinnvoll ableiten, bei Unsicherheit User fragen)
 
 ### 6. Platzhalter füllen
 
 Per `AskUserQuestion`:
+
 - `{{PROJECT_NAME}}` — Default: Basename des aktuellen Verzeichnisses (`basename $(pwd)`)
 - `{{PROJECT_PURPOSE}}` — kurzer Satz
 
 Dann in `CLAUDE.md`:
+
 - `Edit` mit `replace_all: true` für `{{PROJECT_NAME}}`
 - `Edit` mit `replace_all: true` für `{{PROJECT_PURPOSE}}`
 
 ### 7. CLAUDE.md Tech-Stack-Sektion ausfüllen
 
 Den Block:
-```
+
+```text
 _Noch nicht verifiziert — Claude führt Auto-Detect beim nächsten Start aus._
 ```
-ersetzen durch:
-```
-- **Framework:** <Name> <Version> — Doku: <URL>
+
+ersetzen durch (MD034-konform, **bare URLs vermeiden** — als Markdown-Link einbetten):
+
+```markdown
+- **Framework:** <Name> <Version> — Doku: [<Name> Docs](<URL>)
 - **Sprache:** ...
 - **Styling:** ...
 - **Testing:** ...
@@ -102,6 +108,7 @@ Zusätzlich auskommentierte Beispiele oberhalb können stehen bleiben oder entfe
 ### 8. README-Behandlung
 
 `AskUserQuestion`:
+
 - "Template-README behalten als Referenz?" → nichts tun
 - "Durch Minimal-README für `{{PROJECT_NAME}}` ersetzen?" → Write minimaler README mit Projekt-Name + Quick-Start + Hinweis auf CLAUDE.md
 

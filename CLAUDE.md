@@ -6,7 +6,7 @@
 
 - **Name:** {{PROJECT_NAME}}
 - **Zweck:** {{PROJECT_PURPOSE}}
-- **Status:** <PLATZHALTER — z.B. early development / production / maintenance>
+- **Status:** `<PLATZHALTER — z.B. early development / production / maintenance>`
 
 ## Tech Stack
 
@@ -29,35 +29,38 @@
 
 ### Verifizierter Stack
 
-<!-- Wird beim ersten Start automatisch ausgefüllt. Format: -->
+<!-- Wird beim ersten Start automatisch ausgefüllt. Format (MD034-konform, bare URLs als Markdown-Links): -->
 <!--
-- **Framework:** Next.js 15.0.3 — Doku: https://nextjs.org/docs
-- **Sprache:** TypeScript 5.6.3 — Doku: https://www.typescriptlang.org/docs/
-- **Styling:** Tailwind CSS 4.0 — Doku: https://tailwindcss.com/docs
-- **Testing:** Vitest 2.1 — Doku: https://vitest.dev/guide/
+- **Framework:** Next.js 15.0.3 — Doku: [Next.js Docs](https://nextjs.org/docs)
+- **Sprache:** TypeScript 5.6.3 — Doku: [TypeScript Docs](https://www.typescriptlang.org/docs/)
+- **Styling:** Tailwind CSS 4.0 — Doku: [Tailwind CSS Docs](https://tailwindcss.com/docs)
+- **Testing:** Vitest 2.1 — Doku: [Vitest Docs](https://vitest.dev/guide/)
 -->
 
 _Noch nicht verifiziert — Claude führt Auto-Detect beim nächsten Start aus._
 
 ## Konventionen
 
-<PLATZHALTER — z.B.:>
+`<PLATZHALTER — z.B.:>`
+
 - Code-Stil: Prettier / Black / gofmt
-- Naming: <Konvention>
-- Imports: <Reihenfolge / absolute vs. relative>
+- Naming: `<Konvention>`
+- Imports: `<Reihenfolge / absolute vs. relative>`
 - Kommentar-Policy: nur WHY, nicht WHAT
 
 ## Testing
 
-<PLATZHALTER — z.B.:>
-- Test-Runner: <vitest / pytest / jest / go test>
+`<PLATZHALTER — z.B.:>`
+
+- Test-Runner: `<vitest / pytest / jest / go test>`
 - Test-Befehl: `npm test` / `pytest` / etc.
-- Coverage-Ziel: <X%>
-- Wann Tests Pflicht: <neue Features / Bugfixes / Refactor>
+- Coverage-Ziel: `<X%>`
+- Wann Tests Pflicht: `<neue Features / Bugfixes / Refactor>`
 
 ## Git Workflow
 
-<PLATZHALTER — z.B.:>
+`<PLATZHALTER — z.B.:>`
+
 - Branch-Namen: `feature/<kebab-case>`, `fix/<ticket>`
 - Commit-Stil: Conventional Commits / freier Text
 - PRs gegen: `main`
@@ -65,7 +68,8 @@ _Noch nicht verifiziert — Claude führt Auto-Detect beim nächsten Start aus._
 
 ## Wichtige Pfade
 
-<PLATZHALTER — z.B.:>
+`<PLATZHALTER — z.B.:>`
+
 - `src/` — Anwendungscode
 - `tests/` — Tests
 - `docs/` — Dokumentation

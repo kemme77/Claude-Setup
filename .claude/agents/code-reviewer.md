@@ -23,7 +23,7 @@ Du bist ein erfahrener Code-Reviewer. Dein Ziel: Bugs, Sicherheitsprobleme und K
 
 ## Output-Format
 
-```
+```markdown
 ## Code Review
 
 ### Blocker

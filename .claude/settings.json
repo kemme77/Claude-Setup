@@ -14,7 +14,11 @@
     "deny": [
       "Bash(rm -rf /:*)",
       "Bash(git push --force:*)",
-      "Bash(git reset --hard:*)"
+      "Bash(git reset --hard:*)",
+      "Read(.env*)",
+      "Edit(.env*)",
+      "Write(.env*)",
+      "Read(.git/**)"
     ],
     "ask": [
       "Bash(git push:*)",
@@ -22,14 +26,14 @@
     ]
   },
   "$hooksExample": {
-    "$note": "Hooks unten sind Beispiele. Zum Aktivieren in 'hooks' verschieben. Doku: https://docs.claude.com/en/docs/claude-code/hooks",
+    "$note": "Hooks unten sind Beispiele. Zum Aktivieren in 'hooks' verschieben. Tool-Input kommt als JSON via stdin (NICHT als Env-Var) — via jq extrahieren. Doku: https://docs.claude.com/en/docs/claude-code/hooks",
     "PreToolUse": [
       {
         "matcher": "Bash",
         "hooks": [
           {
             "type": "command",
-            "command": "echo \"Ausgeführt: $CLAUDE_TOOL_INPUT\" >> ~/.claude-bash.log"
+            "command": "command -v jq >/dev/null || exit 0; CMD=$(jq -r '.tool_input.command'); echo \"Ausgeführt: $CMD\" >> ~/.claude-bash.log"
           }
         ]
       }
@@ -40,7 +44,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "command -v prettier && prettier --write \"$CLAUDE_FILE_PATH\" 2>/dev/null || true"
+            "command": "command -v jq >/dev/null && command -v prettier >/dev/null || exit 0; FILE=$(jq -r '.tool_input.file_path'); prettier --write \"$FILE\" 2>/dev/null || true"
           }
         ]
       }
@@ -50,7 +54,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "echo \"$(date -Iseconds) $CLAUDE_USER_PROMPT\" >> ~/.claude-prompts.log"
+            "command": "command -v jq >/dev/null || exit 0; PROMPT=$(jq -r '.prompt'); echo \"$(date -Iseconds) $PROMPT\" >> ~/.claude-prompts.log"
           }
         ]
       }

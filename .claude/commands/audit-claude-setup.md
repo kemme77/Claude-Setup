@@ -10,36 +10,36 @@ Read-only Audit. Keine Änderungen am Projekt. Ergebnis: was passt, was fehlt, w
 
 ### Basis-Dateien
 
-| Check | Wie prüfen |
-|-------|-----------|
-| `CLAUDE.md` vorhanden | `Read` |
-| `CLAUDE.md` keine offenen `{{...}}` Platzhalter | `Grep '{{[A-Z_]+}}' CLAUDE.md` |
-| `CLAUDE.md` keine offenen `<PLATZHALTER` Marker | `Grep '<PLATZHALTER' CLAUDE.md` |
-| Tech-Stack-Sektion gefüllt | Inhalt nicht "_Noch nicht verifiziert_" |
-| `.mcp.json` in Root | `Read` |
-| `CLAUDE.local.md.example` vorhanden | `Read` |
-| `.gitignore` enthält `CLAUDE.local.md` | `Grep 'CLAUDE.local.md' .gitignore` |
-| `.claude/settings.json` vorhanden | `Read` |
+| Check                                            | Wie prüfen                                |
+| ------------------------------------------------ | ----------------------------------------- |
+| `CLAUDE.md` vorhanden                            | `Read`                                    |
+| `CLAUDE.md` keine offenen `{{...}}` Platzhalter  | `Grep '{{[A-Z_]+}}' CLAUDE.md`            |
+| `CLAUDE.md` keine offenen `<PLATZHALTER` Marker  | `Grep '<PLATZHALTER' CLAUDE.md`           |
+| Tech-Stack-Sektion gefüllt                       | Inhalt nicht "_Noch nicht verifiziert_"   |
+| `.mcp.json` in Root                              | `Read`                                    |
+| `CLAUDE.local.md.example` vorhanden              | `Read`                                    |
+| `.gitignore` enthält `CLAUDE.local.md`           | `Grep 'CLAUDE.local.md' .gitignore`       |
+| `.claude/settings.json` vorhanden                | `Read`                                    |
 
 ### Inhalts-Bestand
 
-| Check | Wie prüfen |
-|-------|-----------|
-| Mindestens 1 Skill | `Glob .claude/skills/*/SKILL.md` |
-| Mindestens 1 Subagent | `Glob .claude/agents/*.md` |
-| Mindestens 1 Custom Command | `Glob .claude/commands/*.md` |
+| Check                       | Wie prüfen                       |
+| --------------------------- | -------------------------------- |
+| Mindestens 1 Skill          | `Glob .claude/skills/*/SKILL.md` |
+| Mindestens 1 Subagent       | `Glob .claude/agents/*.md`       |
+| Mindestens 1 Custom Command | `Glob .claude/commands/*.md`     |
 
 ### Hygiene
 
-| Check | Wie prüfen |
-|-------|-----------|
-| `CLAUDE.local.md` nicht im Index | `git ls-files | grep -x CLAUDE.local.md` → leer |
-| Keine `.env*` im Index | `git ls-files | grep -E '^\.env'` → leer |
-| `node_modules/` nicht im Index (falls JS/TS) | `git ls-files | grep -E '^node_modules/'` → leer |
+| Check                                        | Wie prüfen                                          |
+| -------------------------------------------- | --------------------------------------------------- |
+| `CLAUDE.local.md` nicht im Index             | `git ls-files \| grep -x CLAUDE.local.md` → leer    |
+| Keine `.env*` im Index                       | `git ls-files \| grep -E '^\.env'` → leer           |
+| `node_modules/` nicht im Index (falls JS/TS) | `git ls-files \| grep -E '^node_modules/'` → leer   |
 
 ## Output-Format
 
-```
+```markdown
 ## Claude Setup Audit — <projektname>
 
 ### OK
