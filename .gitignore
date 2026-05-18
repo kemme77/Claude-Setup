@@ -1,0 +1,24 @@
+# Persönliche Claude Code Overrides — niemals committen
+CLAUDE.local.md
+
+# Secrets
+.env
+.env.local
+.env.*.local
+
+# Dependencies
+node_modules/
+__pycache__/
+*.pyc
+.venv/
+venv/
+target/
+dist/
+build/
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp

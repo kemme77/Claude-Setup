@@ -1,0 +1,29 @@
+# Persönliche Overrides
+
+> **Setup:** `cp CLAUDE.local.md.example CLAUDE.local.md`. Original gitignored.
+>
+> Diese Datei wird zusätzlich zu `CLAUDE.md` geladen und überschreibt projektübergreifende Defaults mit persönlichen Präferenzen.
+
+## Antwort-Sprache
+
+- Antworte in **Deutsch**, außer Code-Kommentare/Commits/PRs (Englisch).
+
+## Antwort-Stil
+
+- Knapp, technisch, ohne Pleasantries.
+- Keine Zusammenfassungen am Ende jeder Antwort, wenn der Diff selbsterklärend ist.
+- Bei Unsicherheit lieber kurze Rückfrage als raten.
+
+## Umgebung
+
+- OS: <Linux / macOS / Windows>
+- Shell: <bash / zsh / fish>
+- Editor/IDE: <neovim / VS Code / JetBrains>
+- Paketmanager-Präferenz: <npm / pnpm / yarn>
+
+## Persönliche Regeln
+
+<Beispiele:>
+- Niemals Mocks für DB-Tests verwenden, immer echte Test-DB.
+- Vor Pushen nach `main` immer mich fragen.
+- PR-Titel max. 70 Zeichen.

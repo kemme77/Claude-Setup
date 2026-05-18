@@ -1,0 +1,60 @@
+{
+  "$comment": "Claude Code Settings. Doku: https://docs.claude.com/en/docs/claude-code/settings",
+  "permissions": {
+    "allow": [
+      "Bash(git status)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(npm test:*)",
+      "Bash(npm run:*)",
+      "Read",
+      "Edit",
+      "Write"
+    ],
+    "deny": [
+      "Bash(rm -rf /:*)",
+      "Bash(git push --force:*)",
+      "Bash(git reset --hard:*)"
+    ],
+    "ask": [
+      "Bash(git push:*)",
+      "Bash(git commit:*)"
+    ]
+  },
+  "$hooksExample": {
+    "$note": "Hooks unten sind Beispiele. Zum Aktivieren in 'hooks' verschieben. Doku: https://docs.claude.com/en/docs/claude-code/hooks",
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo \"Ausgeführt: $CLAUDE_TOOL_INPUT\" >> ~/.claude-bash.log"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "command -v prettier && prettier --write \"$CLAUDE_FILE_PATH\" 2>/dev/null || true"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo \"$(date -Iseconds) $CLAUDE_USER_PROMPT\" >> ~/.claude-prompts.log"
+          }
+        ]
+      }
+    ]
+  },
+  "hooks": {}
+}
