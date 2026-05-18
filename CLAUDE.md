@@ -4,8 +4,8 @@
 
 ## Projekt
 
-- **Name:** <PLATZHALTER — Projektname>
-- **Zweck:** <PLATZHALTER — was tut dieses Projekt und für wen>
+- **Name:** {{PROJECT_NAME}}
+- **Zweck:** {{PROJECT_PURPOSE}}
 - **Status:** <PLATZHALTER — z.B. early development / production / maintenance>
 
 ## Tech Stack

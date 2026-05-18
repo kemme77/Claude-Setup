@@ -16,6 +16,10 @@ Persönliches Template-Repo für [Claude Code](https://docs.claude.com/en/docs/c
 
 ## Quick Start
 
+Empfohlener Weg: **`/init-from-template`** Slash-Command (siehe unten). In einem leeren Projektverzeichnis Claude Code starten, `/init-from-template` aufrufen — Template wird kopiert, Stack interaktiv abgefragt, `CLAUDE.md` gefüllt.
+
+Manueller Weg:
+
 ```bash
 # 1. Repo klonen oder als Template verwenden
 git clone <repo-url> mein-neues-projekt
@@ -29,6 +33,39 @@ claude
 ```
 
 Beim ersten Start scannt Claude das Repo nach Tech-Stack-Indikatoren (`package.json`, `pyproject.toml`, `go.mod`, etc.), fragt zur Verifikation und trägt den bestätigten Stack samt offiziellen Dokumentations-URLs in `CLAUDE.md` ein. Danach sind diese URLs die kanonische Wissensquelle für Library-Verhalten.
+
+## Slash-Commands für Automatisierung
+
+Vier Slash-Commands automatisieren den Template-Lifecycle. Im Template unter `.claude/commands/` als Doku, **funktional** sind sie als Mirror in `~/.claude/commands/` (user-global) installiert — damit überall verfügbar, auch in leeren Verzeichnissen.
+
+| Command | Zweck |
+|---------|-------|
+| `/init-from-template` | Init neues Projekt — kopiert Template, fragt Stack ab, füllt `CLAUDE.md`, ersetzt `{{PROJECT_NAME}}`/`{{PROJECT_PURPOSE}}` |
+| `/sync-to-template` | Backport — kopiert neue/geänderte Agents/Skills/Commands zurück ins Template |
+| `/audit-claude-setup` | Checkliste — prüft aktuelles Projekt gegen Template-Konventionen |
+| `/upgrade-template` | Drift-Check — übernimmt Template-Verbesserungen selektiv ins aktuelle Projekt |
+
+### Installation auf einer neuen Maschine
+
+Template-Pfad ist in den Command-Bodies **hardcoded** als `/home/oogway/GitHub/Claude-Setup`. Auf anderer Maschine:
+
+```bash
+# Template lokal klonen
+git clone <repo-url> ~/GitHub/Claude-Setup
+
+# User-globale Commands installieren
+mkdir -p ~/.claude/commands
+cp ~/GitHub/Claude-Setup/.claude/commands/{init-from-template,sync-to-template,audit-claude-setup,upgrade-template}.md ~/.claude/commands/
+
+# Wenn Template-Pfad woanders liegt: ersetzen
+sed -i 's|/home/oogway/GitHub/Claude-Setup|/dein/pfad|g' ~/.claude/commands/{init-from-template,sync-to-template,audit-claude-setup,upgrade-template}.md
+```
+
+### Sicherheits-Garantien
+
+- **Kein Auto-Commit** — alle Commands enden mit `git status`, du commitest manuell.
+- **Kein Blind-Overwrite** — bei Konflikten (Datei existiert mit anderem Inhalt) wird Diff gezeigt und nachgefragt.
+- **`CLAUDE.md` beim Upgrade** wird nie überschrieben — nur Patch-Vorschlag.
 
 ## Anpassen
 
