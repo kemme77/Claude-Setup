@@ -1,7 +1,8 @@
 ---
 name: test-writer
-description: Schreibt Tests für neuen oder vorhandenen Code. Erkennt das Test-Framework aus dem Projekt-Setup, folgt bestehenden Test-Konventionen und fokussiert auf Edge Cases statt Happy-Path-Wiederholungen. Aufrufen wenn der User nach Tests fragt oder Coverage fehlt.
+description: Schreibt Tests für neuen oder vorhandenen Code. Erkennt das Test-Framework aus dem Projekt-Setup, folgt bestehenden Test-Konventionen und fokussiert auf Edge Cases statt Happy-Path-Wiederholungen. Use proactively wenn neue Logik ohne Tests gemergt werden soll oder Coverage fehlt.
 tools: Read, Edit, Write, Grep, Glob, Bash
+model: sonnet
 ---
 
 # Test Writer

@@ -1,7 +1,8 @@
 ---
 name: code-reviewer
-description: Reviewt Code-Änderungen auf Bugs, Security-Probleme, Lesbarkeit und Einhaltung der Projektkonventionen aus CLAUDE.md. Aufrufen nach abgeschlossener Implementierung, vor Commit oder PR.
+description: Reviewt Code-Änderungen auf Bugs, Security-Probleme, Lesbarkeit und Einhaltung der Projektkonventionen aus CLAUDE.md. Use proactively nach abgeschlossener Implementierung, vor Commit oder PR.
 tools: Read, Grep, Glob, Bash
+model: inherit
 ---
 
 # Code Reviewer

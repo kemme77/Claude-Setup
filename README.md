@@ -11,7 +11,7 @@ Persönliches Template-Repo für [Claude Code](https://docs.claude.com/en/docs/c
 | `.mcp.json` | MCP-Server-Konfiguration (Beispiele auskommentiert) |
 | `.claude/settings.json` | Permissions + Hooks |
 | `.claude/skills/` | Custom Skills (siehe `example-skill/`) |
-| `.claude/agents/` | Subagent-Definitionen (`code-reviewer`, `test-writer`) |
+| `.claude/agents/` | Subagent-Definitionen (siehe [Subagents](#subagents)) |
 | `.claude/commands/` | Custom Slash Commands |
 
 ## Quick Start
@@ -66,6 +66,34 @@ sed -i 's|/home/oogway/GitHub/Claude-Setup|/dein/pfad|g' ~/.claude/commands/{ini
 - **Kein Auto-Commit** — alle Commands enden mit `git status`, du commitest manuell.
 - **Kein Blind-Overwrite** — bei Konflikten (Datei existiert mit anderem Inhalt) wird Diff gezeigt und nachgefragt.
 - **`CLAUDE.md` beim Upgrade** wird nie überschrieben — nur Patch-Vorschlag.
+
+## Subagents
+
+Acht universelle Subagents unter `.claude/agents/`. Werden bei `/init-from-template` ins Zielprojekt kopiert **und** sind zusätzlich user-global in `~/.claude/agents/` gespiegelt — also auch in Projekten ohne Template-Setup verfügbar.
+
+Aufruf: `Use the <name> subagent to ...` oder `@agent-<name>` im Prompt. Trigger-Phrasen in den `description:`-Feldern sorgen für automatische Delegation in passenden Situationen.
+
+| Agent | Typ | Tools | Modell | Zweck |
+|-------|-----|-------|--------|-------|
+| `code-reviewer` | Review (read-only) | Read, Grep, Glob, Bash | inherit | Bugs, Security, Lesbarkeit, CLAUDE.md-Konventionen — pre-commit/PR |
+| `architecture-reviewer` | Review (read-only) | Read, Grep, Glob, Bash | opus | Modulgrenzen, Kopplung, Layering, Skalierungsannahmen |
+| `ui-ux-reviewer` | Review (read-only) | Read, Grep, Glob, Bash | sonnet | a11y (WCAG), Responsive, Semantic HTML, Konsistenz |
+| `security-auditor` | Review (read-only) | Read, Grep, Glob, Bash | opus | OWASP-Top-10-Fokus: Injection, Auth, Crypto, Secrets, SSRF, IDOR |
+| `performance-analyzer` | Review (read-only) | Read, Grep, Glob, Bash | sonnet | N+1, algorithmische Komplexität, Re-Renders, Bundle-Bloat |
+| `test-writer` | Action | Read, Edit, Write, Grep, Glob, Bash | sonnet | Tests für Edge Cases — Framework-Detect aus Stack |
+| `debugger` | Action | Read, Edit, Bash, Grep, Glob | sonnet | Root-Cause-Analyse: reproduce → isolate → minimal fix → verify |
+| `docs-writer` | Action | Read, Edit, Write, Grep, Glob, Bash | sonnet | README, API-Docs, WHY-Kommentare aus Code |
+
+### Installation des User-Global Mirrors
+
+Wie bei den Slash-Commands: auf neuer Maschine nach Template-Clone einmalig spiegeln.
+
+```bash
+mkdir -p ~/.claude/agents
+cp ~/GitHub/Claude-Setup/.claude/agents/*.md ~/.claude/agents/
+```
+
+Template bleibt Source of Truth — Änderungen dort, dann via `/sync-to-template` oder manuelles `cp` propagieren.
 
 ## Anpassen
 
