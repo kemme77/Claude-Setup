@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Halden Field 38 - Mechanical Field Watch</title>
+<!-- Demo only: linking a font via <link> is fine locally; self-host for production (taste-skill 3.A). -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  /* ---- Tokens (one accent, locked; one radius system; theme lock: dark) ---- */
+  :root{
+    --bg:#0a0a0b;            /* off-black, not #000 */
+    --surface:#121214;
+    --surface-2:#1a1a1d;
+    --line:#26262b;
+    --ink:#f4f4f5;
+    --ink-dim:#a1a1aa;
+    --ink-faint:#71717a;
+    --accent:#4f7cff;        /* cobalt - the only accent on the page */
+    --accent-ink:#0a0a0b;
+    --r-card:14px;
+    --r-pill:999px;
+    --maxw:1240px;
+    --ease:cubic-bezier(.16,1,.3,1);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;background:var(--bg);color:var(--ink);
+    font-family:"Space Grotesk",ui-sans-serif,system-ui,sans-serif;
+    line-height:1.55;-webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+
+  /* ---- Buttons (pill, locked; tactile on active; AA contrast) ---- */
+  .btn{
+    display:inline-flex;align-items:center;gap:.5rem;
+    padding:.85rem 1.4rem;border-radius:var(--r-pill);
+    font-weight:600;font-size:.95rem;cursor:pointer;border:1px solid transparent;
+    transition:transform .14s var(--ease),background .2s ease,border-color .2s ease;
+    white-space:nowrap;
+  }
+  .btn-primary{background:var(--accent);color:#fff}
+  .btn-ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+  .btn:active{transform:translateY(1px) scale(.97)}
+  @media(hover:hover) and (pointer:fine){
+    .btn-primary:hover{background:#3f6cf0}
+    .btn-ghost:hover{border-color:var(--ink-dim)}
+  }
+
+  /* ---- Nav (single line, <=72px) ---- */
+  header.nav{
+    position:sticky;top:0;z-index:50;height:68px;
+    display:flex;align-items:center;
+    background:color-mix(in srgb,var(--bg) 78%,transparent);
+    backdrop-filter:blur(12px);border-bottom:1px solid var(--line);
+  }
+  .nav .wrap{display:flex;align-items:center;justify-content:space-between;width:100%}
+  .brand{font-weight:700;letter-spacing:-.02em;font-size:1.15rem}
+  .brand span{color:var(--accent)}
+  .nav-links{display:flex;gap:28px;align-items:center}
+  .nav-links a{color:var(--ink-dim);font-size:.92rem;transition:color .2s ease}
+  @media(hover:hover){.nav-links a:hover{color:var(--ink)}}
+  @media(max-width:760px){.nav-links a:not(.btn){display:none}}
+
+  /* ---- Hero (asymmetric split, min-h dvh, headline <=2 lines) ---- */
+  .hero{min-height:calc(100dvh - 68px);display:flex;align-items:center;padding:48px 0}
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center;width:100%}
+  .eyebrow{font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-faint);margin:0 0 18px}
+  .hero h1{font-size:clamp(2.6rem,6vw,4.4rem);line-height:1.02;letter-spacing:-.03em;margin:0 0 20px;font-weight:700}
+  .hero p.lede{font-size:1.12rem;color:var(--ink-dim);max-width:46ch;margin:0 0 30px}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+  .price-note{color:var(--ink-faint);font-size:.9rem}
+  .hero-media{position:relative;aspect-ratio:4/5;border-radius:var(--r-card);overflow:hidden;border:1px solid var(--line);background:var(--surface)}
+  .hero-media img{width:100%;height:100%;object-fit:cover;filter:grayscale(.15) contrast(1.05)}
+  .hero-media .tag{position:absolute;left:16px;bottom:16px;background:color-mix(in srgb,var(--bg) 70%,transparent);backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:var(--r-pill);padding:.4rem .9rem;font-size:.82rem;color:var(--ink-dim)}
+  @media(max-width:880px){
+    .hero-grid{grid-template-columns:1fr;gap:36px}
+    .hero{padding:32px 0}
+    .hero-media{aspect-ratio:16/11;order:-1}
+  }
+
+  /* ---- Section scaffolding ---- */
+  section{padding:96px 0}
+  .sec-head{max-width:60ch;margin:0 0 48px}
+  .sec-head h2{font-size:clamp(1.9rem,3.6vw,2.8rem);line-height:1.08;letter-spacing:-.025em;margin:0 0 14px;font-weight:700}
+  .sec-head p{color:var(--ink-dim);font-size:1.05rem;margin:0}
+
+  /* ---- Detail: 2-col zigzag (layout family A) ---- */
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+  .split + .split{margin-top:32px}
+  .split.flip .split-media{order:2}
+  .split-media{aspect-ratio:5/4;border-radius:var(--r-card);overflow:hidden;border:1px solid var(--line)}
+  .split-media img{width:100%;height:100%;object-fit:cover;filter:grayscale(.2) contrast(1.05)}
+  .split-body h3{font-size:1.5rem;letter-spacing:-.02em;margin:0 0 12px}
+  .split-body p{color:var(--ink-dim);margin:0;max-width:48ch}
+  @media(max-width:820px){.split{grid-template-columns:1fr;gap:24px}.split.flip .split-media{order:0}}
+
+  /* ---- Specs: featured tiles, grouped (layout family B, no border-per-row) ---- */
+  .specs{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  .spec{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-card);padding:26px 22px}
+  .spec .v{font-size:2rem;font-weight:700;letter-spacing:-.02em;line-height:1}
+  .spec .k{color:var(--ink-faint);font-size:.85rem;margin-top:10px}
+  .spec.lead{grid-column:span 2;background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 16%,var(--surface)),var(--surface))}
+  .spec.lead .v{color:var(--accent)}
+  @media(max-width:820px){.specs{grid-template-columns:1fr 1fr}.spec.lead{grid-column:span 2}}
+
+  /* ---- Quote (layout family C, full-width, <=3 lines) ---- */
+  .quote{background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .quote blockquote{font-size:clamp(1.4rem,3vw,2.1rem);line-height:1.3;letter-spacing:-.02em;margin:0;max-width:24ch;font-weight:500}
+  .quote .attr{margin-top:26px;color:var(--ink-dim);font-size:.95rem}
+  .quote .attr b{color:var(--ink);font-weight:600}
+
+  /* ---- Buy CTA (layout family D, centered card) ---- */
+  .buy .card{background:linear-gradient(160deg,var(--surface-2),var(--surface));border:1px solid var(--line);border-radius:calc(var(--r-card) + 6px);padding:60px 40px;text-align:center}
+  .buy h2{font-size:clamp(2rem,4vw,3rem);letter-spacing:-.03em;margin:0 0 14px}
+  .buy p{color:var(--ink-dim);max-width:42ch;margin:0 auto 28px}
+  .buy .row{display:flex;gap:14px;justify-content:center;align-items:center;flex-wrap:wrap}
+
+  footer{border-top:1px solid var(--line);padding:40px 0;color:var(--ink-faint);font-size:.9rem}
+  footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+  /* ---- Reveal on scroll (motivated: sequence entry). Honors reduced-motion. ---- */
+  .reveal{opacity:0;transform:translateY(20px);transition:opacity .56s var(--ease) var(--rd,0ms),transform .56s var(--ease) var(--rd,0ms)}
+  .reveal.in{opacity:1;transform:none}
+  /* spec wrapper is only the scroll trigger; tiles stagger in individually */
+  .specs.reveal{opacity:1;transform:none;transition:none}
+  .specs .spec{opacity:0;transform:translateY(14px);transition:opacity .5s var(--ease) var(--d,0ms),transform .5s var(--ease) var(--d,0ms)}
+  .specs.in .spec{opacity:1;transform:none}
+  .specs.in .spec:nth-child(1){--d:0ms}
+  .specs.in .spec:nth-child(2){--d:55ms}
+  .specs.in .spec:nth-child(3){--d:110ms}
+  .specs.in .spec:nth-child(4){--d:165ms}
+  .specs.in .spec:nth-child(5){--d:220ms}
+  .specs.in .spec:nth-child(6){--d:275ms}
+  @media(prefers-reduced-motion:reduce){
+    .reveal,.specs .spec{opacity:1;transform:none;transition:none}
+    html{scroll-behavior:auto}
+    .btn{transition:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <div class="brand">Halden<span>.</span></div>
+    <nav class="nav-links">
+      <a href="#detail">The watch</a>
+      <a href="#specs">Specs</a>
+      <a href="#buy">Reviews</a>
+      <a href="#buy" class="btn btn-primary">Buy - $480</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- HERO: asymmetric split, one primary CTA + one secondary -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div class="reveal">
+          <p class="eyebrow">Field 38 - Series two</p>
+          <h1>A watch built to be worn, not displayed.</h1>
+          <p class="lede">Hand-assembled in Trondheim. Automatic movement, 38mm steel case, sapphire crystal, rated to 200m. One size, made well.</p>
+          <div class="hero-cta">
+            <a href="#buy" class="btn btn-primary">Buy now</a>
+            <a href="#detail" class="btn btn-ghost">See the build</a>
+            <span class="price-note">$480 - ships in 3 days</span>
+          </div>
+        </div>
+        <div class="hero-media reveal" style="--rd:90ms">
+          <!-- TODO: replace with real product photo, 1200x1500 -->
+          <img src="https://picsum.photos/seed/halden-field-38-watch/1200/1500" alt="Halden Field 38 watch on a worn leather strap" loading="eager" />
+          <span class="tag">Brushed steel, sage dial</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DETAIL: zigzag splits (max 2 in a row) -->
+  <section id="detail">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <h2>Three decisions you can feel on the wrist.</h2>
+        <p>Most field watches over-build for a battlefield no buyer will visit. This one optimizes for the next ten years of ordinary days.</p>
+      </div>
+
+      <div class="split reveal">
+        <div class="split-media">
+          <!-- TODO: macro of the movement -->
+          <img src="https://picsum.photos/seed/halden-movement-macro/1000/800" alt="Exposed automatic movement through the caseback" loading="lazy" />
+        </div>
+        <div class="split-body">
+          <h3>A movement, not a battery</h3>
+          <p>The Sellita SW200 winds itself from the motion of your arm. No cell to replace, no dead watch in a drawer. Service it once a decade and pass it on.</p>
+        </div>
+      </div>
+
+      <div class="split flip reveal">
+        <div class="split-media">
+          <!-- TODO: strap detail -->
+          <img src="https://picsum.photos/seed/halden-strap-leather/1000/800" alt="Hand-stitched leather strap detail" loading="lazy" />
+        </div>
+        <div class="split-body">
+          <h3>A strap worth keeping</h3>
+          <p>Full-grain leather, tanned in Italy, stitched by hand. It softens to your wrist over months instead of cracking over weeks. Quick-release pins, so swapping takes ten seconds.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPECS: featured tiles, grouped (no border-per-row) -->
+  <section id="specs">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <h2>The numbers that matter.</h2>
+      </div>
+      <div class="specs reveal">
+        <div class="spec lead">
+          <div class="v">38 mm</div>
+          <div class="k">Steel case, fits 6.0-7.5in wrists</div>
+        </div>
+        <div class="spec">
+          <div class="v">200 m</div>
+          <div class="k">Water resistance</div>
+        </div>
+        <div class="spec">
+          <div class="v">38 h</div>
+          <div class="k">Power reserve</div>
+        </div>
+        <div class="spec">
+          <div class="v">Sapphire</div>
+          <div class="k">Anti-reflective crystal</div>
+        </div>
+        <div class="spec">
+          <div class="v">SW200</div>
+          <div class="k">Swiss automatic movement</div>
+        </div>
+        <div class="spec lead">
+          <div class="v">2 years</div>
+          <div class="k">Warranty, plus lifetime servicing</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUOTE: full-width, <=3 lines, clean attribution (no em-dash) -->
+  <section class="quote">
+    <div class="wrap reveal">
+      <blockquote>"I stopped reaching for my other watches. This one just disappears on the wrist."</blockquote>
+      <div class="attr"><b>Marek Osei</b>, industrial designer - owner since 2024</div>
+    </div>
+  </section>
+
+  <!-- BUY: centered card, single CTA intent reused from nav -->
+  <section id="buy" class="buy">
+    <div class="wrap">
+      <div class="card reveal">
+        <h2>One watch. $480.</h2>
+        <p>Free returns for 30 days. If it does not earn a place on your wrist, send it back.</p>
+        <div class="row">
+          <a href="#" class="btn btn-primary">Buy now</a>
+          <span class="price-note">In stock - ships from Trondheim in 3 days</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>Halden Watch Co. - Trondheim, Norway</div>
+    <div>Demo page built with the taste-skill. Images are placeholders.</div>
+  </div>
+</footer>
+
+<script>
+  // Motivated motion: staggered entry as sections arrive. Skipped entirely under reduced-motion.
+  (function(){
+    var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var els = Array.prototype.slice.call(document.querySelectorAll(".reveal"));
+    if(reduce || !("IntersectionObserver" in window)){
+      els.forEach(function(el){el.classList.add("in")});
+      return;
+    }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); }
+      });
+    },{threshold:.18,rootMargin:"0px 0px -8% 0px"});
+    els.forEach(function(el){io.observe(el)});
+  })();
+</script>
+</body>
+</html>
