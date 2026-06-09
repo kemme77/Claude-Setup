@@ -10,7 +10,7 @@ Persönliches Template-Repo für [Claude Code](https://docs.claude.com/en/docs/c
 | `CLAUDE.local.md.example` | Vorlage für persönliche, gitignorete Prefs |
 | `.mcp.json` | MCP-Server-Konfiguration (Beispiele auskommentiert) |
 | `.claude/settings.json` | Permissions + Hooks |
-| `.claude/skills/` | Custom Skills (siehe `example-skill/`) |
+| `.claude/skills/` | Custom Skills (siehe `example-skill/`) + [Design-Skills](#design-skills) |
 | `.claude/agents/` | Subagent-Definitionen (siehe [Subagents](#subagents)) |
 | `.claude/commands/` | Custom Slash Commands |
 
@@ -33,6 +33,30 @@ claude
 ```
 
 Beim ersten Start scannt Claude das Repo nach Tech-Stack-Indikatoren (`package.json`, `pyproject.toml`, `go.mod`, etc.), fragt zur Verifikation und trägt den bestätigten Stack samt offiziellen Dokumentations-URLs in `CLAUDE.md` ein. Danach sind diese URLs die kanonische Wissensquelle für Library-Verhalten.
+
+## Design-Skills
+
+Gebündelte Frontend-/Design-Skills (reines Markdown, self-contained):
+
+| Skill | Quelle | Zweck |
+|-------|--------|-------|
+| `taste-skill` (`design-taste-frontend`) | [leonxlnx/taste-skill](https://github.com/leonxlnx/taste-skill) | Anti-Slop-Frontend: Landing Pages, Portfolios, Redesigns |
+| `emil-design-eng` | [emilkowalski/skill](https://github.com/emilkowalski/skill) | UI-Polish, Komponenten-Design, Animations-Entscheidungen |
+
+Beide triggern automatisch über ihr `description`-Feld. Auf neuer Maschine mitspiegeln:
+
+```bash
+cp -r ~/GitHub/Claude-Setup/.claude/skills/{taste-skill,emil-design-eng} ~/.claude/skills/
+```
+
+### impeccable (nicht vendored)
+
+[impeccable](https://impeccable.style) ist ein vollwertiges Plugin (eigener Update-Mechanismus, abhängig von `scripts/*.mjs`) — daher **nicht** ins Template kopiert, sondern per Marketplace installieren:
+
+```bash
+/plugin marketplace add pbakaus/impeccable
+# dann: /plugin → impeccable installieren
+```
 
 ## Slash-Commands für Automatisierung
 
